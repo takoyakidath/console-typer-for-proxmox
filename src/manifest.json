@@ -19,5 +19,9 @@
       "32": "icons/icon32.png"
     }
   },
-  "permissions": ["activeTab", "scripting", "storage"]
+  "permissions": [
+    "activeTab",
+    "scripting",
+    "storage"
+  ]
 }
