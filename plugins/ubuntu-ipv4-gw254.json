@@ -1,0 +1,22 @@
+{
+  "id": "example.ubuntu-ipv4-gw254",
+  "name": "Ubuntu IPv4（Gateway は最後から1番目）",
+  "version": "1.0.0",
+  "author": "example",
+  "description": "標準の Ubuntu IPv4 設定と同じ画面用。Gateway をネットワークの最後から1番目（/24 なら .254）にします。Subnet 欄にカーソルを置いてから実行。",
+  "settings": [
+    { "id": "network", "label": "ネットワーク（CIDR）", "default": "10.0.0.0/24" },
+    { "id": "dns", "label": "DNS（カンマ区切り）", "default": "10.0.0.53" },
+    { "id": "search", "label": "Search domains", "default": "" }
+  ],
+  "inputs": [
+    { "id": "ip", "type": "ipv4", "base": "network", "label": "IPアドレス", "placeholder": "7 / 10.0.0.7" }
+  ],
+  "fields": [
+    { "label": "Subnet", "value": "{{ip|cidr}}" },
+    { "label": "Address", "value": "{{ip|ip}}" },
+    { "label": "Gateway", "value": "{{ip|host:-1}}" },
+    { "label": "Name servers", "value": "{{dns}}" },
+    { "label": "Search domains", "value": "{{search}}" }
+  ]
+}

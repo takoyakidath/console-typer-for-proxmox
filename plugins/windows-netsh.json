@@ -1,0 +1,17 @@
+{
+  "id": "example.windows-netsh",
+  "name": "Windows: netsh で固定IPを設定",
+  "version": "1.0.0",
+  "author": "example",
+  "description": "管理者のコマンドプロンプトで実行します。キーボード配列の設定に注意してください（日本語キーボードの Windows なら「JIS」）。",
+  "settings": [
+    { "id": "iface", "label": "インターフェース名", "default": "Ethernet" },
+    { "id": "network", "label": "ネットワーク（CIDR）", "default": "192.168.1.0/24" },
+    { "id": "gateway", "label": "ゲートウェイ（空欄=.1）", "default": "" },
+    { "id": "dns", "label": "DNS", "default": "1.1.1.1" }
+  ],
+  "inputs": [
+    { "id": "ip", "type": "ipv4", "base": "network", "label": "IPアドレス", "placeholder": "162 / 192.168.1.162" }
+  ],
+  "text": "netsh interface ip set address name=\"{{iface}}\" static {{ip|ip}} {{ip|mask}} {{gateway ?? ip|host:1}}\nnetsh interface ip set dns name=\"{{iface}}\" static {{dns}}\n"
+}

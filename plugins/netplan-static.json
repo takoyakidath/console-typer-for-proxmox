@@ -1,0 +1,17 @@
+{
+  "id": "example.netplan-static",
+  "name": "netplan: 固定IPを書き込んで適用",
+  "version": "1.0.0",
+  "author": "example",
+  "description": "ログイン済みのUbuntuで /etc/netplan/99-static.yaml を作成し、netplan apply します。",
+  "settings": [
+    { "id": "iface", "label": "インターフェース", "default": "ens18" },
+    { "id": "network", "label": "ネットワーク（CIDR）", "default": "192.168.1.0/24" },
+    { "id": "gateway", "label": "ゲートウェイ（空欄=.1）", "default": "" },
+    { "id": "dns", "label": "DNS（カンマ区切り）", "default": "1.1.1.1, 8.8.8.8" }
+  ],
+  "inputs": [
+    { "id": "ip", "type": "ipv4", "base": "network", "label": "IPアドレス", "placeholder": "162 / 192.168.1.162" }
+  ],
+  "text": "sudo tee /etc/netplan/99-static.yaml >/dev/null <<'EOF'\nnetwork:\n  version: 2\n  ethernets:\n    {{iface}}:\n      dhcp4: false\n      addresses: [{{ip|withprefix}}]\n      routes:\n        - to: default\n          via: {{gateway ?? ip|host:1}}\n      nameservers:\n        addresses: [{{dns}}]\nEOF\nsudo chmod 600 /etc/netplan/99-static.yaml\nsudo netplan apply\n"
+}

@@ -1,0 +1,16 @@
+name: 機能の提案 / Feature request
+description: 新しい機能や、標準プラグインにしてほしいひな形の提案
+labels: [enhancement]
+body:
+  - type: textarea
+    id: want
+    attributes:
+      label: やりたいこと
+      description: どの画面で、何を楽にしたいか
+    validations:
+      required: true
+  - type: textarea
+    id: idea
+    attributes:
+      label: アイデア（あれば）
+      description: プラグインで実現できそうなら、JSONの案を書いてもらえると助かります

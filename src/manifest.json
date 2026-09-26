@@ -1,0 +1,23 @@
+{
+  "manifest_version": 3,
+  "name": "Console Typer for Proxmox VE",
+  "short_name": "Console Typer",
+  "version": "1.3.0",
+  "description": "Proxmox VEのnoVNCコンソールに、保存したテキストやIP設定をキーボード入力として自動で打ち込みます。",
+  "minimum_chrome_version": "102",
+  "icons": {
+    "16": "icons/icon16.png",
+    "32": "icons/icon32.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "Console Typer for Proxmox VE",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "32": "icons/icon32.png"
+    }
+  },
+  "permissions": ["activeTab", "scripting", "storage"]
+}

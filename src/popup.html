@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <header>
+    <h1>Console Typer <span class="sub">for Proxmox VE</span></h1>
+    <nav class="tabs">
+      <button class="tab" data-tab="clips">クリップボード</button>
+      <button class="tab" data-tab="direct">直接入力</button>
+      <button class="tab" data-tab="plugins">プラグイン</button>
+    </nav>
+  </header>
+
+  <!-- ===== クリップボード ===== -->
+  <section id="tab-clips" class="pane">
+    <div id="listView">
+      <div class="toolbar">
+        <select id="newType"></select>
+        <button id="add">＋ 追加</button>
+      </div>
+      <p class="hint">クリックすると、コンソールでカーソルがある欄から入力します。</p>
+      <ul id="list"></ul>
+    </div>
+
+    <div id="askView" hidden>
+      <div id="askBody"></div>
+      <pre id="askPreview"></pre>
+      <div id="askError" class="error" hidden></div>
+      <div class="row end">
+        <span class="spacer"></span>
+        <button id="askCancel">キャンセル</button>
+        <button id="askGo" class="primary">入力（Enter）</button>
+      </div>
+    </div>
+
+    <div id="editor" hidden>
+      <div id="editorBody"></div>
+      <div class="row end">
+        <button id="delete" class="danger">削除</button>
+        <span class="spacer"></span>
+        <button id="cancel">キャンセル</button>
+        <button id="save" class="primary">保存</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 直接入力 ===== -->
+  <section id="tab-direct" class="pane" hidden>
+    <textarea id="text" placeholder="コンソールに入力したい文字列（改行 = Enter）&#10;{TAB} {ENTER} などの特殊キーも使えます"></textarea>
+    <div class="row">
+      <label><input id="trailingEnter" type="checkbox"> 最後にEnter</label>
+      <span class="spacer"></span>
+      <button id="clear">クリア</button>
+      <button id="send" class="primary">送信</button>
+    </div>
+  </section>
+
+  <!-- ===== プラグイン ===== -->
+  <section id="tab-plugins" class="pane" hidden>
+    <div class="toolbar">
+      <button id="importFile">ファイルから読み込む</button>
+      <button id="pasteToggle">JSONを貼り付け</button>
+      <input type="file" id="fileInput" accept=".json,application/json" multiple hidden>
+    </div>
+    <div id="pasteBox" hidden>
+      <textarea id="pasteJson" placeholder='{ "id": "my.plugin", "name": "...", "fields": [ ... ] }'></textarea>
+      <div class="row">
+        <span class="spacer"></span>
+        <button id="pasteImport" class="primary">読み込む</button>
+      </div>
+    </div>
+    <div id="pluginMsg" class="msg" hidden></div>
+    <ul id="pluginList"></ul>
+    <p class="hint">プラグインは JSON で書いた入力テンプレートです。書き方は同梱の PLUGINS.md を参照してください。</p>
+  </section>
+
+  <!-- ===== 共通 ===== -->
+  <footer>
+    <div class="row">
+      <label>配列
+        <select id="layout">
+          <option value="us">US</option>
+          <option value="jis">JIS</option>
+        </select>
+      </label>
+      <label>間隔 <input id="delay" type="number" min="0" max="1000" value="20"> ms</label>
+      <span class="spacer"></span>
+      <button id="stop">停止</button>
+    </div>
+    <progress id="progress" value="0" max="1" hidden></progress>
+    <div id="status"></div>
+  </footer>
+  <script src="plugins.js"></script>
+  <script src="popup.js"></script>
+</body>
+</html>
